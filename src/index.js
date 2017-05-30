@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 // AppContainer is a necessary wrapper component for HMR
 
+import 'antd/dist/antd.min.css';  // or 'antd/dist/antd.less'
 import App from './components/App';
 
 const render = (Component) => {

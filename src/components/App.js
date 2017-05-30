@@ -1,10 +1,12 @@
 import React from 'react';
-import styles from './App.css';
 
-const App = () => (
-  <div className={styles.app}>
-    <h2>hello, </h2>
-  </div>
-);
+// const App = () => (
+//   <div className={styles.app}>
+//     <h2>hello, </h2>
+//   </div>
+// );
 
-export default App;
+import Home from './home';
+
+// export default App;
+export default Home;
