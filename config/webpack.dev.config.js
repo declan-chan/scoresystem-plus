@@ -49,8 +49,11 @@ module.exports = {
     contentBase: DIST_PATH,
     // match the output path
 
-    publicPath: '/'
+    publicPath: '/',
     // match the output `publicPath`
+
+    historyApiFallback: true,
+    //deal with react-router refresh
   },
 
   module: {
