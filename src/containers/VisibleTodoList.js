@@ -2,24 +2,10 @@ import { connect } from 'react-redux'
 import { toggleTodo } from '../actions'
 import { withRouter } from 'react-router'
 import TodoList from '../components/todolist/TodoList'
-
-const getVisibilityTodos = (todos, filter) => {
-	switch (filter) {
-		case 'all':
-			return todos;
-		case 'completed':
-			return todos.filter(t => t.completed);
-		case 'active':
-			return todos.filter(t => !t.completed);
-		default:
-			throw new Error('Unknown filter: ' + filter);
-	}
-
-}
+import { getVisibilityTodos } from '../reducers'
 
 const mapStateToProps = (state, {params}) => ({
-	//why is state.todos.present
-	todos: getVisibilityTodos(state.todos, params.filter || 'all')
+	todos: getVisibilityTodos(state, params.filter || 'all')
 })
 
 // mapDispatchToProps的完整写法
