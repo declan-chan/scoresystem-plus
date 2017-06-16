@@ -38,7 +38,7 @@ const logger = (store) => (next) => {
 
 const thunk = (store) => (next) => (action) => 
 	typeof action === 'function' ? 
-		action(store.dispatch) :
+		action(store.dispatch, store.getState) :
 		next(action);
 
 
@@ -64,7 +64,7 @@ const configureStore = () => {
 		}, 1000));
 	} else {
 		//调试模式没有缓存到本地
-		middlewares.push(logger);
+		// middlewares.push(logger);
 		enhancer = compose(
 			applyMiddleware(...middlewares),
 			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
