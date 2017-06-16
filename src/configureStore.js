@@ -4,13 +4,20 @@ import { loadState, saveState } from './localStorage'
 // import { throttle } from 'lodash';
 import throttle from 'lodash/throttle'
 
-//可以从redux-promise中引入
-const promise = (store) => (next) => (action) => {
-	if (typeof action.then === 'function') {
-		return action.then(next)
-	}
-	return next(action);
-}
+// //可以从redux-promise中引入
+// const promise = (store) => (next) => (action) => {
+// 	if (typeof action.then === 'function') {
+// 		return action.then(next)
+// 	}
+// 	return next(action);
+// }
+
+// wrap DispatchWithMiddlewares的作用和applyMiddleware相同
+// const wrapDispatchWithMiddlewares = (store, middlewares) => {
+// 	middlewares.slice().reverse().forEach(middleware =>
+// 		store.dispatch = middleware(store)(store.dispatch)
+// 	);
+// }
 
 //可以从redux-logger中引入
 const logger = (store) => (next) => {
@@ -29,18 +36,18 @@ const logger = (store) => (next) => {
 	}
 }
 
-// const wrapDispatchWithMiddlewares = (store, middlewares) => {
-// 	middlewares.slice().reverse().forEach(middleware =>
-// 		store.dispatch = middleware(store)(store.dispatch)
-// 	);
-// }
+const thunk = (store) => (next) => (action) => 
+	typeof action === 'function' ? 
+		action(store.dispatch) :
+		next(action);
+
 
 
 const configureStore = () => {
 //persist the state to the localStorage;
 	const persistedState = loadState();
 	
-	const middlewares = [promise];
+	const middlewares = [thunk];
 	let enhancer, store;
 	if (process.env.NODE_ENV === 'production') {
 		enhancer = applyMiddleware(...middlewares);
